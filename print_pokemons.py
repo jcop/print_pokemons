@@ -105,6 +105,32 @@ def print_pokemons_by_number(lst):
     print('Sub total: {}'.format(counter))
     print('Pokemons Total: {}'.format(len(lst)))
 
+def print_pokemons_by_cp(lst):
+    lst.sort(key=lambda x: (x['cp'],x['%'], x['id']))
+    lst.reverse()
+
+    sep = '-'*(110)
+    print('{:>3} | {:>15} | {:>4} | {:>4} | {:>8} | {:>8} | {:>8} | {:>8} | {:>8} | {:>8} | {}'.format(
+        'id', 'name', 'cp', 'hp', 'attack', 'defense', 'stamina', '%', 'candies', 'n_evolves', 'family'))
+    print(sep)
+
+    curr_family = ''
+    counter = 0
+
+    for (i, p) in enumerate(lst, start=1):
+        if not curr_family:
+            curr_family=p['family']
+
+        if p['family'] != curr_family:
+            curr_family=p['family']
+            print('')
+
+        print('{id:>3} | {name:>15} | {cp:>4} | {hp:>4} | {attack:>8} | {defense:>8} | {stamina:>8} | {%:>8.3f} | {candies:>8} | {n_evolves:>8} | {family}'.format(**p))
+
+    print('Sub total: {}'.format(counter))
+    print('Pokemons Total: {}'.format(len(lst)))
+
+
 
 def get_credentials_from_keyfile(keyfile):
     username = ''
